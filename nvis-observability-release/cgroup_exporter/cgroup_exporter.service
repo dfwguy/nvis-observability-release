@@ -1,0 +1,13 @@
+[Unit]
+Description=Cgroup Exporter for Slurm
+After=network.target slurmd.service
+
+[Service]
+Type=simple
+User=root
+ExecStart=/usr/local/bin/cgroup_exporter --config.paths /slurm --web.listen-address :9306
+Restart=always
+RestartSec=5
+
+[Install]
+WantedBy=multi-user.target

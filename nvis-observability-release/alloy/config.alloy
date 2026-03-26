@@ -1,0 +1,104 @@
+// ─────────────────────────────────────────────────────────────────────────────
+// Grafana Alloy — GPU node agent config (template)
+// Deployed per-node by setup.sh / fix-alloy-labels.sh
+// Placeholders <OBSVM_IP>, <CLUSTER_NAME>, <NODE_HOSTNAME> substituted at deploy time.
+//
+// River syntax rules:
+//   - Block attributes: one per line (newline is the terminator)
+//   - Object literals inside arrays [{...}]: fields separated by commas
+// ─────────────────────────────────────────────────────────────────────────────
+
+prometheus.remote_write "obsvm" {
+  endpoint {
+    url = "http://<OBSVM_IP>:9090/api/v1/write"
+  }
+}
+
+prometheus.scrape "dcgm" {
+  targets          = [{ __address__ = "localhost:9400" }]
+  scrape_interval  = "15s"
+  honor_timestamps = false
+  forward_to       = [prometheus.relabel.dcgm.receiver]
+}
+prometheus.relabel "dcgm" {
+  forward_to = [prometheus.remote_write.obsvm.receiver]
+  rule {
+    target_label = "job"
+    replacement  = "dcgm-exporter"
+  }
+  rule {
+    target_label = "cluster"
+    replacement  = "<CLUSTER_NAME>"
+  }
+  rule {
+    target_label = "instance"
+    replacement  = "<NODE_HOSTNAME>"
+  }
+  rule {
+    target_label = "node"
+    replacement  = "<NODE_HOSTNAME>"
+  }
+}
+
+prometheus.scrape "node_exporter" {
+  targets         = [{ __address__ = "localhost:9100" }]
+  scrape_interval = "15s"
+  forward_to      = [prometheus.relabel.node_exporter.receiver]
+}
+prometheus.relabel "node_exporter" {
+  forward_to = [prometheus.remote_write.obsvm.receiver]
+  rule {
+    target_label = "job"
+    replacement  = "node-exporter"
+  }
+  rule {
+    target_label = "cluster"
+    replacement  = "<CLUSTER_NAME>"
+  }
+  rule {
+    target_label = "instance"
+    replacement  = "<NODE_HOSTNAME>"
+  }
+  rule {
+    target_label = "node"
+    replacement  = "<NODE_HOSTNAME>"
+  }
+}
+
+prometheus.scrape "cgroup" {
+  targets         = [{ __address__ = "localhost:9306" }]
+  scrape_interval = "15s"
+  forward_to      = [prometheus.relabel.cgroup.receiver]
+}
+prometheus.relabel "cgroup" {
+  forward_to = [prometheus.remote_write.obsvm.receiver]
+  rule {
+    target_label = "job"
+    replacement  = "slurm-cgroup-exporter"
+  }
+  rule {
+    target_label = "cluster"
+    replacement  = "<CLUSTER_NAME>"
+  }
+  rule {
+    target_label = "instance"
+    replacement  = "<NODE_HOSTNAME>"
+  }
+  rule {
+    target_label = "node"
+    replacement  = "<NODE_HOSTNAME>"
+  }
+}
+
+loki.write "obsvm" {
+  endpoint {
+    url = "http://<OBSVM_IP>:3100/loki/api/v1/push"
+  }
+}
+local.file_match "syslog" {
+  path_targets = [{ __path__ = "/var/log/syslog", job = "syslog", cluster = "<CLUSTER_NAME>", node = "<NODE_HOSTNAME>", instance = "<NODE_HOSTNAME>" }]
+}
+loki.source.file "syslog" {
+  targets    = local.file_match.syslog.targets
+  forward_to = [loki.write.obsvm.receiver]
+}

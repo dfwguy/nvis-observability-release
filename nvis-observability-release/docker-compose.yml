@@ -1,0 +1,113 @@
+services:
+  loki:
+    image: grafana/loki:3.1.0
+    container_name: nvis-loki
+    command: -config.file=/etc/loki/loki-config.yaml
+    ports:
+      - "3100:3100"
+    volumes:
+      - loki-data:/loki
+      - ./loki/loki-config.yaml:/etc/loki/loki-config.yaml:ro
+    restart: unless-stopped
+
+  prometheus:
+    image: prom/prometheus:v2.54.1
+    container_name: nvis-prometheus
+    command:
+      - --config.file=/etc/prometheus/prometheus.yml
+      - --storage.tsdb.path=/prometheus
+      - --web.enable-remote-write-receiver
+      - --web.enable-lifecycle
+      - --web.enable-admin-api
+    ports:
+      - "9090:9090"
+    volumes:
+      - prom-data:/prometheus
+      - ./prometheus/prometheus.yml:/etc/prometheus/prometheus.yml:ro
+      - ./certs:/etc/prometheus/certs:ro
+    restart: unless-stopped
+
+  grafana:
+    image: grafana/grafana:11.1.4
+    container_name: nvis-grafana
+    environment:
+      - GF_SECURITY_ADMIN_USER=admin
+      - GF_SECURITY_ADMIN_PASSWORD=${GRAFANA_ADMIN_PASSWORD:-changeme}
+      - GF_PANELS_DISABLE_SANITIZE_HTML=true
+      - GF_SECURITY_CONTENT_SECURITY_POLICY=false
+    ports:
+      - "3000:3000"
+    volumes:
+      - grafana-data:/var/lib/grafana
+    restart: unless-stopped
+
+  victoriametrics:
+    image: victoriametrics/victoria-metrics:v1.103.0
+    container_name: nvis-victoriametrics
+    restart: unless-stopped
+    command:
+      - '--storageDataPath=/vm-data'
+      - '--retentionPeriod=12'
+    volumes:
+      - ./vm-data:/vm-data
+    ports:
+      - "8428:8428"
+
+  bcm-exporter:
+    image: python:3.11-slim
+    container_name: nvis-bcm-exporter
+    restart: unless-stopped
+    network_mode: host
+    environment:
+      # Set BCM_HOST to your BCM/cluster-manager IP.  Required.
+      - BCM_HOST=${BCM_HOST:-}
+      - BCM_USER=${BCM_USER:-root}
+      # BCM_JUMP: jump host if BCM is not directly reachable (e.g. user@jumphost)
+      - BCM_JUMP=${BCM_JUMP:-}
+      - BCM_SSH_KEY=/root/.ssh/id_ed25519
+      - CLUSTER_NAME=${CLUSTER_NAME:-nvis-cluster}
+      - SCRAPE_INTERVAL=${BCM_SCRAPE_INTERVAL:-60}
+      - PORT=9401
+    volumes:
+      - ~/.ssh:/root/.ssh:ro
+      - ./scripts:/scripts:ro
+    command: >
+      bash -c "apt-get update -qq && apt-get install -y -qq openssh-client &&
+               python3 /scripts/bcm_exporter.py"
+    healthcheck:
+      test: ["CMD", "python3", "-c", "import urllib.request; urllib.request.urlopen('http://localhost:9401/health')"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+
+  slurm-job-exporter:
+    image: python:3.11-slim
+    container_name: nvis-slurm-job-exporter
+    restart: unless-stopped
+    network_mode: host
+    environment:
+      # Same SSH config as bcm-exporter — Slurm runs on the same head node
+      - BCM_HOST=${BCM_HOST:-}
+      - BCM_USER=${BCM_USER:-root}
+      - BCM_JUMP=${BCM_JUMP:-}
+      - BCM_SSH_KEY=/root/.ssh/id_ed25519
+      - CLUSTER_NAME=${CLUSTER_NAME:-nvis-cluster}
+      - SLURM_PORT=9402
+      - SCRAPE_INTERVAL=30
+      - SACCT_HOURS=72
+    volumes:
+      - ~/.ssh:/root/.ssh:ro
+      - ./scripts:/scripts:ro
+    command: >
+      bash -c "apt-get update -qq && apt-get install -y -qq openssh-client &&
+               python3 /scripts/slurm_job_exporter.py"
+    healthcheck:
+      test: ["CMD", "python3", "-c", "import urllib.request; urllib.request.urlopen('http://localhost:9402/health')"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+
+volumes:
+  loki-data:
+  prom-data:
+  grafana-data:

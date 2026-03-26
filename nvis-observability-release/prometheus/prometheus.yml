@@ -1,0 +1,48 @@
+global:
+  scrape_interval: 15s
+
+scrape_configs:
+  - job_name: prometheus
+    static_configs:
+      - targets: ["localhost:9090"]
+
+  - job_name: nvis-cert-exporter
+    scrape_interval: 5m
+    static_configs:
+      - targets: ["172.17.0.1:9102"]
+
+  # BCM (BrightCluster Manager / cluster head node) exporter
+  # Runs as nvis-bcm-exporter container. SSHes to BCM and collects full inventory.
+  - job_name: bcm-exporter
+    scrape_interval: 60s
+    scrape_timeout: 30s
+    honor_labels: true
+    static_configs:
+      - targets: ["172.17.0.1:9401"]
+
+  # Slurm job exporter — squeue (live) + sacct (24h history)
+  # SSHes to BCM/slurmctld, works with any username source (local/LDAP/SAML/AD)
+  - job_name: slurm-job-exporter
+    scrape_interval: 30s
+    scrape_timeout: 25s
+    honor_labels: true
+    static_configs:
+      - targets: ["172.17.0.1:9402"]
+
+  # GPU node agents — DCGM, node_exporter, cgroup metrics
+  # These are push-based: Grafana Alloy on each node scrapes localhost and
+  # remote_writes to Prometheus. No pull targets needed here.
+  # (Alloy config is deployed by setup.sh phase_gpu_nodes)
+
+remote_write:
+  - url: http://nvis-victoriametrics:8428/api/v1/write
+
+  # BCM Certificate Authority — TLS config for BCM scrapes
+  # Applied to scrape jobs targeting BCM-managed nodes
+  # tls_config:
+  #   ca_file: /etc/prometheus/certs/bcm-ca.pem
+
+  # BCM Certificate Authority — TLS config for BCM scrapes
+  # Applied to scrape jobs targeting BCM-managed nodes
+  # tls_config:
+  #   ca_file: /etc/prometheus/certs/bcm-ca.pem

@@ -1,0 +1,32 @@
+[Unit]
+Description=NVIS BCM (BrightCluster Manager) Prometheus Exporter
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=simple
+User=root
+WorkingDirectory=/opt/nvis-observability
+
+# ── Required ──────────────────────────────────────────────────────────────
+Environment=BCM_HOST=CHANGE_ME
+Environment=CLUSTER_NAME=CHANGE_ME
+
+# ── Optional ──────────────────────────────────────────────────────────────
+# Environment=BCM_JUMP=user@jumphost
+# Environment=BCM_USER=root
+# Environment=BCM_SSH_KEY=/root/.ssh/id_ed25519
+
+Environment=BCM_SSH_KEY=/root/.ssh/id_ed25519
+Environment=PORT=9401
+Environment=SCRAPE_INTERVAL=60
+Environment=BCM_TIMEOUT=30
+
+ExecStart=/usr/bin/python3 /opt/nvis-observability/scripts/bcm_exporter.py
+Restart=always
+RestartSec=15
+StandardOutput=journal
+StandardError=journal
+
+[Install]
+WantedBy=multi-user.target

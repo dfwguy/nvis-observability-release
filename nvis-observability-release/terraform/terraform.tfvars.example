@@ -1,0 +1,6 @@
+grafana_url      = "http://<OBSVM_IP>:3000"
+grafana_user     = "admin"
+grafana_password = "<GRAFANA_PASSWORD>"
+prometheus_url   = "http://<OBSVM_IP>:9090"
+loki_url         = "http://<OBSVM_IP>:3100"
+cluster_name     = "<CLUSTER_NAME>"

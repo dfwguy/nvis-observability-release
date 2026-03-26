@@ -1,0 +1,160 @@
+logging { level = "info" }
+local.file_match "varlogs" {
+  path_targets = [
+    { __path__ = "/var/log/syslog" },
+    { __path__ = "/var/log/kern.log" },
+    { __path__ = "/var/log/messages" },
+    { __path__ = "/var/log/auth.log" },
+    { __path__ = "/var/log/nv-hostengine.log" },
+    { __path__ = "/var/log/slurm/*.log" },
+    { __path__ = "/var/log/**/*.log" },
+  ]
+}
+loki.source.file "varlogs" {
+  targets    = local.file_match.varlogs.targets
+  forward_to = [loki.write.to_loki.receiver]
+}
+local.file_match "dockerlogs" {
+  path_targets = [
+    { __path__ = "/var/lib/docker/containers/*/*.log" },
+  ]
+}
+loki.source.file "dockerlogs" {
+  targets    = local.file_match.dockerlogs.targets
+  forward_to = [loki.write.to_loki.receiver]
+}
+loki.write "to_loki" {
+  endpoint {
+    url = "http://10.127.28.83:3100/loki/api/v1/push"
+  }
+  external_labels = {
+    cluster = sys.env("NVIS_CLUSTER"),
+    node    = sys.env("HOSTNAME"),
+  }
+}
+prometheus.exporter.self "alloy" {}
+prometheus.scrape "alloy_self" {
+  targets = [
+    { __address__ = "127.0.0.1:12345" },
+  ]
+  scrape_interval = "15s"
+  forward_to = [prometheus.relabel.alloy_self.receiver]
+}
+prometheus.relabel "alloy_self" {
+  forward_to = [prometheus.remote_write.to_prom.receiver]
+  rule {
+    target_label = "job"
+    replacement  = "alloy"
+  }
+  rule {
+    target_label = "instance"
+    replacement  = sys.env("HOSTNAME")
+  }
+  rule {
+    target_label = "cluster"
+    replacement  = sys.env("NVIS_CLUSTER")
+  }
+}
+prometheus.scrape "bcm_exporter" {
+  targets = [
+    { __address__ = "127.0.0.1:8081" },
+  ]
+  scheme          = "https"
+  metrics_path    = "/exporter"
+  scrape_interval = "15s"
+  tls_config {
+    ca_file              = "/etc/alloy/certs/cacert.pem"
+    cert_file            = "/etc/alloy/certs/prometheus.pem"
+    key_file             = "/etc/alloy/certs/prometheus.key"
+    insecure_skip_verify = true
+  }
+  forward_to = [prometheus.relabel.bcm.receiver]
+}
+prometheus.relabel "bcm" {
+  forward_to = [prometheus.remote_write.to_prom.receiver]
+  rule {
+    target_label = "job"
+    replacement  = "bcm-exporter"
+  }
+  rule {
+    target_label = "instance"
+    replacement  = sys.env("HOSTNAME")
+  }
+  rule {
+    target_label = "cluster"
+    replacement  = sys.env("NVIS_CLUSTER")
+  }
+}
+prometheus.scrape "slurm_cgroup_exporter" {
+  targets = [
+    { __address__ = "node001:9306" },
+    { __address__ = "node002:9306" },
+  ]
+  scrape_interval = "15s"
+  forward_to = [prometheus.relabel.slurm_cgroup.receiver]
+}
+prometheus.relabel "slurm_cgroup" {
+  forward_to = [prometheus.remote_write.to_prom.receiver]
+  rule {
+    target_label = "job"
+    replacement  = "slurm-cgroup-exporter"
+  }
+  rule {
+    target_label = "cluster"
+    replacement  = sys.env("NVIS_CLUSTER")
+  }
+  rule {
+    source_labels = ["instance"]
+    regex         = "([^:]+):.*"
+    target_label  = "instance"
+    replacement   = "$1"
+  }
+  rule {
+    source_labels = ["instance"]
+    regex         = "(.+)"
+    target_label  = "node"
+    replacement   = "$1"
+  }
+  rule {
+    source_labels = ["cgroup"]
+    regex         = ".*job_(\\d+).*"
+    target_label  = "jobid"
+    replacement   = "$1"
+  }
+}
+prometheus.scrape "dcgm_exporter" {
+  targets = [
+    { __address__ = "node001:9400" },
+    { __address__ = "node002:9400" },
+  ]
+  scrape_interval = "15s"
+  forward_to = [prometheus.relabel.dcgm.receiver]
+}
+prometheus.relabel "dcgm" {
+  forward_to = [prometheus.remote_write.to_prom.receiver]
+  rule {
+    target_label = "job"
+    replacement  = "dcgm-exporter"
+  }
+  rule {
+    target_label = "cluster"
+    replacement  = sys.env("NVIS_CLUSTER")
+  }
+  rule {
+    source_labels = ["instance"]
+    regex         = "([^:]+):.*"
+    target_label  = "instance"
+    replacement   = "$1"
+  }
+  rule {
+    source_labels = ["instance"]
+    regex         = "(.+)"
+    target_label  = "node"
+    replacement   = "$1"
+  }
+}
+prometheus.remote_write "to_prom" {
+  endpoint {
+    url = "http://10.127.28.83:9090/api/v1/write"
+  }
+}

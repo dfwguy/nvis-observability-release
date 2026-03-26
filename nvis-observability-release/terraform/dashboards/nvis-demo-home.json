@@ -1,0 +1,880 @@
+{
+  "id": 35,
+  "panels": [
+    {
+      "gridPos": {
+        "h": 6,
+        "w": 24,
+        "x": 0,
+        "y": 0
+      },
+      "options": {
+        "content": "<div style=\"background:linear-gradient(135deg,#0a0f1a,#0d1f2d,#0a1628);padding:20px 28px;border-radius:10px;border:1px solid #1e3a5a;position:relative;overflow:hidden\">\n  <div style=\"display:flex;align-items:center;justify-content:space-between;gap:20px\">\n    <div style='flex:1'>\n      <div style='color:#76b900;font-size:24px;font-weight:bold;letter-spacing:-0.5px'>NVIDIA NVIS Observability Suite</div>\n      <div style='color:#8b949e;font-size:12px;margin-top:4px'>Single pane of glass \u00b7 BCM \u00b7 run.ai \u00b7 UFM \u00b7 Spectrum-X \u00b7 B300 SuperPOD</div>\n      <div style='display:flex;gap:10px;margin-top:10px;flex-wrap:wrap'>\n        <span style='background:#0d2014;border:1px solid #2ea043;color:#7ee787;padding:3px 10px;border-radius:12px;font-size:10px'>\u2705 GPU Health</span>\n        <span style='background:#0d1f3a;border:1px solid #388bfd;color:#79c0ff;padding:3px 10px;border-radius:12px;font-size:10px'>\u2705 Network Fabric</span>\n        <span style='background:#1a0d2e;border:1px solid #bc8cff;color:#d2a8ff;padding:3px 10px;border-radius:12px;font-size:10px'>\u2705 Job Analytics</span>\n        <span style='background:#1a1200;border:1px solid #d29922;color:#f0c040;padding:3px 10px;border-radius:12px;font-size:10px'>\u2705 Impact Analysis</span>\n        <span style='background:#1f0d0d;border:1px solid #f85149;color:#ff7b72;padding:3px 10px;border-radius:12px;font-size:10px'>\u2705 Cert Audit</span>\n      </div>\n    </div>\n    <div style=\"display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px;min-width:220px\">\n      <svg style=\"height:126px;display:block\" xmlns=\"http://www.w3.org/2000/svg\" height=\"800\" width=\"1200\" viewBox=\"-29.99775 -38.70675 259.9805 232.2405\" style=\"background-color: #222\"><g fill-rule=\"evenodd\" fill=\"none\"><path fill=\"#FFF\" d=\"M83.166 117.393l.004 37.434h10.57v-37.433H83.166zM0 117.343v37.484h10.666v-28.463l8.263.003c2.737 0 4.686.681 6.005 2.088 1.673 1.782 2.355 4.655 2.355 9.912v16.46h10.334v-20.71c0-14.781-9.422-16.775-18.64-16.775H0zm100.188.051v37.433h17.148c9.136 0 12.117-1.52 15.342-4.926 2.28-2.392 3.753-7.642 3.753-13.379 0-5.261-1.247-9.956-3.422-12.879-3.917-5.227-9.56-6.249-17.983-6.249zm10.487 8.15h4.546c6.594 0 10.86 2.962 10.86 10.646 0 7.686-4.266 10.647-10.86 10.647h-4.546v-21.292zm-42.752-8.15L59.1 147.062l-8.455-29.666-11.412-.002 12.074 37.433h15.238l12.169-37.433h-10.79zm73.427 37.433h10.574v-37.43l-10.576-.003zm29.637-37.42l-14.763 37.407h10.425l2.336-6.612h17.47l2.21 6.612h11.32l-14.876-37.41-14.122.004zm6.863 6.825l6.404 17.524h-13.01z\"/><path fill=\"#76B900\" d=\"M69.189 29.708v-8.993a67.728 67.728 0 012.653-.136c24.596-.773 40.733 21.134 40.733 21.134S95.147 65.919 76.46 65.919c-2.692 0-5.1-.433-7.271-1.162v-27.27c9.575 1.156 11.5 5.386 17.258 14.982L99.25 41.674s-9.345-12.258-25.1-12.258c-1.715 0-3.353.12-4.961.292zm0-29.707v13.433c.882-.07 1.766-.126 2.653-.158 34.205-1.152 56.489 28.052 56.489 28.052s-25.597 31.124-52.262 31.124c-2.443 0-4.73-.225-6.88-.606v8.303c1.838.234 3.742.372 5.73.372 24.815 0 42.76-12.672 60.138-27.671 2.879 2.307 14.675 7.919 17.1 10.378-16.523 13.832-55.028 24.98-76.857 24.98a63.43 63.43 0 01-6.111-.318v11.67h94.316V0H69.19zm0 64.756v7.09c-22.952-4.093-29.322-27.95-29.322-27.95s11.02-12.21 29.322-14.189v7.779c-.014 0-.024-.004-.036-.004-9.604-1.154-17.108 7.82-17.108 7.82s4.204 15.106 17.144 19.454zM28.425 42.862s13.602-20.073 40.764-22.148v-7.28c-30.084 2.414-56.136 27.893-56.136 27.893S27.807 83.985 69.19 87.89v-7.74c-30.368-3.822-40.765-37.288-40.765-37.288z\"/></g></svg>\n      <div style=\"width:100%;height:1px;background:rgba(255,255,255,0.1)\"></div>\n      <div style=\"font-size:10px;color:#8b949e;letter-spacing:0.5px\">Powered by</div>\n      <div style=\"color:#76b900;font-size:16px;font-weight:700;letter-spacing:2px\">NVIS</div>\n    </div>\n  </div>\n</div>",
+        "mode": "html"
+      },
+      "title": "",
+      "type": "text"
+    },
+    {
+      "collapsed": false,
+      "gridPos": {
+        "h": 1,
+        "w": 24,
+        "x": 0,
+        "y": 4
+      },
+      "title": "\ud83d\udea6 Live Cluster Status",
+      "type": "row"
+    },
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "${datasource}"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "red",
+                "value": null
+              },
+              {
+                "color": "yellow",
+                "value": 1
+              },
+              {
+                "color": "green",
+                "value": 2
+              }
+            ]
+          }
+        }
+      },
+      "gridPos": {
+        "h": 4,
+        "w": 3,
+        "x": 0,
+        "y": 5
+      },
+      "options": {
+        "colorMode": "background",
+        "graphMode": "none",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ]
+        }
+      },
+      "targets": [
+        {
+          "expr": "count(count by(instance)(DCGM_FI_DEV_GPU_TEMP{cluster=\"$cluster\"}))",
+          "legendFormat": "Nodes",
+          "refId": "A"
+        }
+      ],
+      "title": "Nodes Online",
+      "type": "stat"
+    },
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "${datasource}"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "red",
+                "value": null
+              },
+              {
+                "color": "green",
+                "value": 1
+              }
+            ]
+          }
+        }
+      },
+      "gridPos": {
+        "h": 4,
+        "w": 2,
+        "x": 3,
+        "y": 5
+      },
+      "options": {
+        "colorMode": "value",
+        "graphMode": "none",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ]
+        }
+      },
+      "targets": [
+        {
+          "expr": "count(DCGM_FI_DEV_GPU_TEMP{cluster=\"$cluster\"})",
+          "legendFormat": "GPUs",
+          "refId": "A"
+        }
+      ],
+      "title": "Total GPUs",
+      "type": "stat"
+    },
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "${datasource}"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "red",
+                "value": null
+              },
+              {
+                "color": "yellow",
+                "value": 40
+              },
+              {
+                "color": "green",
+                "value": 70
+              }
+            ]
+          },
+          "unit": "percent"
+        }
+      },
+      "gridPos": {
+        "h": 4,
+        "w": 2,
+        "x": 5,
+        "y": 5
+      },
+      "options": {
+        "colorMode": "background",
+        "graphMode": "area",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ]
+        }
+      },
+      "targets": [
+        {
+          "expr": "avg(DCGM_FI_DEV_GPU_UTIL{cluster=\"$cluster\"})",
+          "refId": "A"
+        }
+      ],
+      "title": "Avg GPU Util",
+      "type": "stat"
+    },
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "${datasource}"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "yellow",
+                "value": 300
+              },
+              {
+                "color": "red",
+                "value": 700
+              }
+            ]
+          },
+          "unit": "watt"
+        }
+      },
+      "gridPos": {
+        "h": 4,
+        "w": 2,
+        "x": 7,
+        "y": 5
+      },
+      "options": {
+        "colorMode": "value",
+        "graphMode": "area",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ]
+        }
+      },
+      "targets": [
+        {
+          "expr": "sum(DCGM_FI_DEV_POWER_USAGE{cluster=\"$cluster\"})",
+          "refId": "A"
+        }
+      ],
+      "title": "GPU Power",
+      "type": "stat"
+    },
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "${datasource}"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              }
+            ]
+          }
+        }
+      },
+      "gridPos": {
+        "h": 4,
+        "w": 2,
+        "x": 9,
+        "y": 5
+      },
+      "options": {
+        "colorMode": "value",
+        "graphMode": "none",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ]
+        }
+      },
+      "targets": [
+        {
+          "expr": "count(count by(id)(container_cpu_load_average_10s{id=~\".*/slurmstepd.scope/job_[0-9]+$\"})) or vector(0)",
+          "refId": "A"
+        }
+      ],
+      "title": "Active Jobs",
+      "type": "stat"
+    },
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "${datasource}"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "mappings": [
+            {
+              "options": {
+                "0": {
+                  "color": "green",
+                  "text": "\u2705 Clean"
+                }
+              },
+              "type": "value"
+            }
+          ],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 1
+              }
+            ]
+          }
+        }
+      },
+      "gridPos": {
+        "h": 4,
+        "w": 2,
+        "x": 11,
+        "y": 5
+      },
+      "options": {
+        "colorMode": "background",
+        "graphMode": "none",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ]
+        }
+      },
+      "targets": [
+        {
+          "expr": "sum(DCGM_FI_DEV_ECC_DBE_VOL_TOTAL{cluster=\"$cluster\"}) or vector(0)",
+          "refId": "A"
+        }
+      ],
+      "title": "ECC Errors",
+      "type": "stat"
+    },
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "${datasource}"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "mappings": [
+            {
+              "options": {
+                "0": {
+                  "color": "green",
+                  "text": "\u2705 Clean"
+                }
+              },
+              "type": "value"
+            }
+          ],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 1
+              }
+            ]
+          }
+        }
+      },
+      "gridPos": {
+        "h": 4,
+        "w": 2,
+        "x": 13,
+        "y": 5
+      },
+      "options": {
+        "colorMode": "background",
+        "graphMode": "none",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ]
+        }
+      },
+      "targets": [
+        {
+          "expr": "sum(DCGM_FI_DEV_XID_ERRORS{cluster=\"$cluster\"}) or vector(0)",
+          "refId": "A"
+        }
+      ],
+      "title": "XID Errors",
+      "type": "stat"
+    },
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "${datasource}"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "yellow",
+                "value": 70
+              },
+              {
+                "color": "red",
+                "value": 85
+              }
+            ]
+          },
+          "unit": "celsius"
+        }
+      },
+      "gridPos": {
+        "h": 4,
+        "w": 2,
+        "x": 15,
+        "y": 5
+      },
+      "options": {
+        "colorMode": "background",
+        "graphMode": "area",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ]
+        }
+      },
+      "targets": [
+        {
+          "expr": "avg(DCGM_FI_DEV_GPU_TEMP{cluster=\"$cluster\"})",
+          "refId": "A"
+        }
+      ],
+      "title": "Avg GPU Temp",
+      "type": "stat"
+    },
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "${datasource}"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "yellow",
+                "value": 100
+              },
+              {
+                "color": "red",
+                "value": 500
+              }
+            ]
+          }
+        }
+      },
+      "gridPos": {
+        "h": 4,
+        "w": 2,
+        "x": 17,
+        "y": 5
+      },
+      "options": {
+        "colorMode": "value",
+        "graphMode": "area",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ]
+        }
+      },
+      "targets": [
+        {
+          "expr": "sum(node_sockstat_TCP_inuse{cluster=\"$cluster\"})",
+          "refId": "A"
+        }
+      ],
+      "title": "TCP Connections",
+      "type": "stat"
+    },
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "${datasource}"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "fixedColor": "blue",
+            "mode": "fixed"
+          },
+          "unit": "Bps"
+        }
+      },
+      "gridPos": {
+        "h": 4,
+        "w": 2,
+        "x": 19,
+        "y": 5
+      },
+      "options": {
+        "colorMode": "value",
+        "graphMode": "area",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ]
+        }
+      },
+      "targets": [
+        {
+          "expr": "sum(rate(node_disk_read_bytes_total{cluster=\"$cluster\"}[2m])+rate(node_disk_written_bytes_total{cluster=\"$cluster\"}[2m]))",
+          "refId": "A"
+        }
+      ],
+      "title": "Disk I/O",
+      "type": "stat"
+    },
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "${datasource}"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "mappings": [
+            {
+              "options": {
+                "2": {
+                  "color": "yellow",
+                  "text": "\u26a0\ufe0f Partial"
+                },
+                "3": {
+                  "color": "green",
+                  "text": "\u2705 All UP"
+                }
+              },
+              "type": "value"
+            }
+          ],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "red",
+                "value": null
+              },
+              {
+                "color": "yellow",
+                "value": 2
+              },
+              {
+                "color": "green",
+                "value": 3
+              }
+            ]
+          }
+        }
+      },
+      "gridPos": {
+        "h": 4,
+        "w": 3,
+        "x": 21,
+        "y": 5
+      },
+      "options": {
+        "colorMode": "background",
+        "graphMode": "none",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ]
+        }
+      },
+      "targets": [
+        {
+          "expr": "count(up == 1)",
+          "refId": "A"
+        }
+      ],
+      "title": "OBS Stack",
+      "type": "stat"
+    },
+    {
+      "collapsed": false,
+      "gridPos": {
+        "h": 1,
+        "w": 24,
+        "x": 0,
+        "y": 9
+      },
+      "title": "\ud83d\uddc2\ufe0f Dashboard Navigation",
+      "type": "row"
+    },
+    {
+      "gridPos": {
+        "h": 10,
+        "w": 24,
+        "x": 0,
+        "y": 10
+      },
+      "options": {
+        "content": "<div style='display:grid;grid-template-columns:repeat(4,1fr);gap:14px;padding:4px'><a href='/d/nvis-live-topology' target='_blank' style='text-decoration:none'><div style='background:#0d1f2d;border:1px solid #388bfd;border-radius:8px;padding:16px;cursor:pointer;transition:all 0.2s;min-height:110px'><div style='font-size:24px;margin-bottom:8px'>\ud83c\udf10</div><div style='color:#79c0ff;font-size:13px;font-weight:bold'>Live Topology</div><div style='color:#8b949e;font-size:11px;margin-top:4px;line-height:1.5'>Interactive cluster map \u00b7 Animated traffic \u00b7 Drag & drop nodes \u00b7 Live fault detection</div><div style='margin-top:8px;font-size:10px;color:#388bfd'>\u2192 Click to open</div></div></a><a href='/d/cluster-overview-cod' target='_blank' style='text-decoration:none'><div style='background:#0d200f;border:1px solid #2ea043;border-radius:8px;padding:16px;min-height:110px'><div style='font-size:24px;margin-bottom:8px'>\ud83d\udcca</div><div style='color:#7ee787;font-size:13px;font-weight:bold'>Cluster Overview</div><div style='color:#8b949e;font-size:11px;margin-top:4px;line-height:1.5'>Node health \u00b7 Active jobs \u00b7 User activity \u00b7 GPU utilization trends</div><div style='margin-top:8px;font-size:10px;color:#2ea043'>\u2192 Click to open</div></div></a><a href='/d/gpu-health-cod' target='_blank' style='text-decoration:none'><div style='background:#1a0d0d;border:1px solid #f85149;border-radius:8px;padding:16px;min-height:110px'><div style='font-size:24px;margin-bottom:8px'>\ud83c\udfae</div><div style='color:#ff7b72;font-size:13px;font-weight:bold'>GPU Health</div><div style='color:#8b949e;font-size:11px;margin-top:4px;line-height:1.5'>ECC SBE/DBE \u00b7 Throttle reasons \u00b7 NVLink BW \u00b7 XID errors \u00b7 PCIe health</div><div style='margin-top:8px;font-size:10px;color:#f85149'>\u2192 Click to open</div></div></a><a href='/d/single-job-stats-cod1' target='_blank' style='text-decoration:none'><div style='background:#1a1200;border:1px solid #d29922;border-radius:8px;padding:16px;min-height:110px'><div style='font-size:24px;margin-bottom:8px'>\ud83d\udd2c</div><div style='color:#f0c040;font-size:13px;font-weight:bold'>Job Analytics</div><div style='color:#8b949e;font-size:11px;margin-top:4px;line-height:1.5'>Per-job GPU util \u00b7 CPU efficiency \u00b7 Memory \u00b7 OOM kills \u00b7 Job logs</div><div style='margin-top:8px;font-size:10px;color:#d29922'>\u2192 Click to open</div></div></a><a href='/d/nvis-node-deep-dive' target='_blank' style='text-decoration:none'><div style='background:#0d1117;border:1px solid #388bfd;border-radius:8px;padding:16px;min-height:110px'><div style='font-size:24px;margin-bottom:8px'>\ud83d\udda5\ufe0f</div><div style='color:#79c0ff;font-size:13px;font-weight:bold'>Node Deep Dive</div><div style='color:#8b949e;font-size:11px;margin-top:4px;line-height:1.5'>AMD EPYC 9554 \u00b7 Ubuntu 24.04 \u00b7 NVMe I/O \u00b7 NCCL connections \u00b7 OS metrics</div><div style='margin-top:8px;font-size:10px;color:#388bfd'>\u2192 Click to open</div></div></a><a href='/d/nvis-network-fabric' target='_blank' style='text-decoration:none'><div style='background:#0a1628;border:1px solid #bc8cff;border-radius:8px;padding:16px;min-height:110px'><div style='font-size:24px;margin-bottom:8px'>\ud83c\udf10</div><div style='color:#d2a8ff;font-size:13px;font-weight:bold'>Network Fabric</div><div style='color:#8b949e;font-size:11px;margin-top:4px;line-height:1.5'>UFM \u00b7 IB \u00b7 Spectrum-X \u00b7 RoCE \u00b7 PFC/ECN \u00b7 NCCL socket storms</div><div style='margin-top:8px;font-size:10px;color:#bc8cff'>\u2192 Click to open</div></div></a><a href='/d/nvis-impact-analysis' target='_blank' style='text-decoration:none'><div style='background:#1a1200;border:1px solid #ff8800;border-radius:8px;padding:16px;min-height:110px'><div style='font-size:24px;margin-bottom:8px'>\u26a1</div><div style='color:#ffa657;font-size:13px;font-weight:bold'>Impact Analysis</div><div style='color:#8b949e;font-size:11px;margin-top:4px;line-height:1.5'>Job \u2192 Network \u2192 GPU \u00b7 Bad job cascades \u00b7 XID 94 \u2192 50 GPUs down \u00b7 RAID slowdown</div><div style='margin-top:8px;font-size:10px;color:#ff8800'>\u2192 Click to open</div></div></a><a href='/d/nvis-security-audit' target='_blank' style='text-decoration:none'><div style='background:#150a1f;border:1px solid #bc8cff;border-radius:8px;padding:16px;min-height:110px'><div style='font-size:24px;margin-bottom:8px'>\ud83d\udd12</div><div style='color:#d2a8ff;font-size:13px;font-weight:bold'>Security Audit</div><div style='color:#8b949e;font-size:11px;margin-top:4px;line-height:1.5'>DMS cert expiry \u00b7 LDAP \u00b7 SSH logins \u00b7 Service health \u00b7 License compliance</div><div style='margin-top:8px;font-size:10px;color:#bc8cff'>\u2192 Click to open</div></div></a></div>",
+        "mode": "html"
+      },
+      "title": "",
+      "type": "text"
+    },
+    {
+      "collapsed": false,
+      "gridPos": {
+        "h": 1,
+        "w": 24,
+        "x": 0,
+        "y": 20
+      },
+      "title": "\ud83d\udcc8 24h Trends",
+      "type": "row"
+    },
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "${datasource}"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "drawStyle": "line",
+            "fillOpacity": 20,
+            "gradientMode": "opacity",
+            "lineWidth": 2
+          },
+          "max": 100,
+          "min": 0,
+          "unit": "percent"
+        }
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 8,
+        "x": 0,
+        "y": 21
+      },
+      "options": {
+        "legend": {
+          "calcs": [
+            "mean",
+            "max"
+          ],
+          "displayMode": "table",
+          "placement": "bottom"
+        },
+        "tooltip": {
+          "mode": "multi"
+        }
+      },
+      "targets": [
+        {
+          "expr": "avg by(instance)(DCGM_FI_DEV_GPU_UTIL{cluster=\"$cluster\"})",
+          "legendFormat": "{{instance}}",
+          "refId": "A"
+        }
+      ],
+      "title": "GPU Utilization \u2014 24h",
+      "type": "timeseries"
+    },
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "${datasource}"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "drawStyle": "line",
+            "fillOpacity": 10,
+            "lineWidth": 2
+          },
+          "unit": "watt"
+        }
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 8,
+        "x": 8,
+        "y": 21
+      },
+      "options": {
+        "legend": {
+          "calcs": [
+            "mean",
+            "max"
+          ],
+          "displayMode": "table",
+          "placement": "bottom"
+        },
+        "tooltip": {
+          "mode": "multi"
+        }
+      },
+      "targets": [
+        {
+          "expr": "DCGM_FI_DEV_POWER_USAGE{cluster=\"$cluster\"}",
+          "legendFormat": "{{instance}} GPU{{gpu}}",
+          "refId": "A"
+        }
+      ],
+      "title": "GPU Power \u2014 24h",
+      "type": "timeseries"
+    },
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "${datasource}"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "drawStyle": "line",
+            "fillOpacity": 10,
+            "lineWidth": 2
+          },
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "transparent",
+                "value": null
+              },
+              {
+                "color": "yellow",
+                "value": 70
+              },
+              {
+                "color": "red",
+                "value": 85
+              }
+            ]
+          },
+          "unit": "celsius"
+        }
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 8,
+        "x": 16,
+        "y": 21
+      },
+      "options": {
+        "legend": {
+          "calcs": [
+            "mean",
+            "max"
+          ],
+          "displayMode": "table",
+          "placement": "bottom"
+        },
+        "tooltip": {
+          "mode": "multi"
+        }
+      },
+      "targets": [
+        {
+          "expr": "DCGM_FI_DEV_GPU_TEMP{cluster=\"$cluster\"}",
+          "legendFormat": "{{instance}} GPU{{gpu}}",
+          "refId": "A"
+        }
+      ],
+      "title": "GPU Temp \u2014 24h",
+      "type": "timeseries"
+    }
+  ],
+  "refresh": "30s",
+  "schemaVersion": 39,
+  "tags": [
+    "home",
+    "demo",
+    "landing",
+    "nvis"
+  ],
+  "time": {
+    "from": "now-1h",
+    "to": "now"
+  },
+  "title": "NVIS Demo Home",
+  "uid": "nvis-demo-home",
+  "version": 26,
+  "templating": {
+    "list": [
+      {
+        "current": {},
+        "hide": 0,
+        "includeAll": false,
+        "label": "Prometheus",
+        "multi": false,
+        "name": "datasource",
+        "query": "prometheus",
+        "refresh": 1,
+        "regex": "",
+        "skipUrlSync": false,
+        "type": "datasource"
+      },
+      {
+        "current": {},
+        "hide": 0,
+        "includeAll": false,
+        "label": "Loki",
+        "multi": false,
+        "name": "loki_datasource",
+        "query": "loki",
+        "refresh": 1,
+        "regex": "",
+        "skipUrlSync": false,
+        "type": "datasource"
+      },
+      {
+        "datasource": {
+          "type": "prometheus",
+          "uid": "${datasource}"
+        },
+        "label": "Cluster",
+        "name": "cluster",
+        "query": {
+          "query": "label_values(up{job=\"node-exporter\"}, cluster)",
+          "refId": "StandardVariableQuery"
+        },
+        "refresh": 2,
+        "sort": 1,
+        "type": "query",
+        "includeAll": false,
+        "multi": false,
+        "hide": 0
+      }
+    ]
+  }
+}

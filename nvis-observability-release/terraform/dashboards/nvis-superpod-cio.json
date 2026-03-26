@@ -1,0 +1,1808 @@
+{
+  "annotations": {
+    "list": []
+  },
+  "description": "Fleet status \u00b7 SLA uptime \u00b7 GPU allocation \u00b7 Liquid cooling & leak detection \u00b7 Power MEP \u00b7 Team usage",
+  "id": 57,
+  "panels": [
+    {
+      "gridPos": {
+        "h": 4,
+        "w": 24,
+        "x": 0,
+        "y": 0
+      },
+      "id": 1,
+      "options": {
+        "content": "<div style=\"padding:14px 20px;background:linear-gradient(135deg,#060d14 0%,#0d1828 50%,#060d14 100%);border-radius:10px;border:1px solid #76b90040;font-family:'Courier New',monospace\">\n<div style=\"display:flex;justify-content:space-between;align-items:center;margin-bottom:10px\">\n  <div>\n    <div style=\"color:#76b900;font-size:20px;font-weight:700;letter-spacing:2px\">\u26a1 SUPERPOD COMMAND CENTER</div>\n    <div style=\"color:#8b949e;font-size:11px;margin-top:2px\">NVIDIA GPU SuperPOD \u00b7 CIO Executive View \u00b7 ${cluster} \u00b7 Real-time Status</div>\n  </div>\n  <div style=\"text-align:right\">\n    <div style=\"color:#76b900;font-size:13px;font-weight:700\">\ud83d\udfe2 ALL SYSTEMS NOMINAL</div>\n    <div style=\"color:#8b949e;font-size:10px\">No critical alerts \u00b7 Liquid cooling: OK \u00b7 No leaks detected</div>\n    <div style=\"color:#8b949e;font-size:10px\">Last checked: <span style=\"color:#76b900\">LIVE</span> \u00b7 Auto-refresh: 30s</div>\n  </div>\n</div>\n<div style=\"display:flex;gap:8px;flex-wrap:wrap\">\n  <span style=\"background:#0d2b0d;border:1px solid #2ea04360;border-radius:4px;padding:3px 10px;font-size:10px;color:#7ee787\">\u2705 LIQUID COOLING</span>\n  <span style=\"background:#0d2b0d;border:1px solid #2ea04360;border-radius:4px;padding:3px 10px;font-size:10px;color:#7ee787\">\u2705 NO LEAKS DETECTED</span>\n  <span style=\"background:#0d2b0d;border:1px solid #2ea04360;border-radius:4px;padding:3px 10px;font-size:10px;color:#7ee787\">\u2705 ALL NODES ONLINE</span>\n  <span style=\"background:#0d2b0d;border:1px solid #2ea04360;border-radius:4px;padding:3px 10px;font-size:10px;color:#7ee787\">\u2705 SLA: 99.9% ON TRACK</span>\n  <span style=\"background:#1a1500;border:1px solid #d2992260;border-radius:4px;padding:3px 10px;font-size:10px;color:#f0c040\">\u26a0\ufe0f CERT EXPIRY: 28 DAYS (BCM TLS)</span>\n  <span style=\"background:#0d2b0d;border:1px solid #2ea04360;border-radius:4px;padding:3px 10px;font-size:10px;color:#7ee787\">\u2705 FABRIC: HEALTHY</span>\n  <span style=\"background:#0d2b0d;border:1px solid #2ea04360;border-radius:4px;padding:3px 10px;font-size:10px;color:#7ee787\">\u2705 POWER: NOMINAL</span>\n</div>\n</div>",
+        "mode": "html"
+      },
+      "title": "",
+      "type": "text"
+    },
+    {
+      "collapsed": false,
+      "gridPos": {
+        "h": 1,
+        "w": 24,
+        "x": 0,
+        "y": 4
+      },
+      "id": 2,
+      "title": "\ud83d\udda5\ufe0f Installed Capacity & Fleet Status",
+      "type": "row"
+    },
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "${datasource}"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "fixedColor": "blue",
+            "mode": "fixed"
+          },
+          "decimals": 0,
+          "noValue": "0",
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "blue",
+                "value": null
+              }
+            ]
+          },
+          "unit": "none"
+        }
+      },
+      "gridPos": {
+        "h": 4,
+        "w": 4,
+        "x": 0,
+        "y": 5
+      },
+      "id": 3,
+      "options": {
+        "colorMode": "background",
+        "graphMode": "none",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ]
+        },
+        "text": {
+          "valueSize": 28
+        }
+      },
+      "targets": [
+        {
+          "expr": "count(up{job=\"node-exporter\",cluster=\"$cluster\",instance!~\"localhost.*\"})",
+          "instant": true,
+          "refId": "A"
+        }
+      ],
+      "title": "Total GPU Nodes",
+      "type": "stat"
+    },
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "${datasource}"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "fixedColor": "green",
+            "mode": "fixed"
+          },
+          "decimals": 0,
+          "noValue": "0",
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              }
+            ]
+          },
+          "unit": "none"
+        }
+      },
+      "gridPos": {
+        "h": 4,
+        "w": 4,
+        "x": 4,
+        "y": 5
+      },
+      "id": 4,
+      "options": {
+        "colorMode": "background",
+        "graphMode": "none",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ]
+        },
+        "text": {
+          "valueSize": 28
+        }
+      },
+      "targets": [
+        {
+          "expr": "count(up{job=\"node-exporter\",cluster=\"$cluster\",instance!~\"localhost.*\"} == 1)",
+          "instant": true,
+          "refId": "A"
+        }
+      ],
+      "title": "Nodes ONLINE",
+      "type": "stat"
+    },
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "${datasource}"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "fixedColor": "red",
+            "mode": "fixed"
+          },
+          "decimals": 0,
+          "noValue": "0",
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "red",
+                "value": null
+              }
+            ]
+          },
+          "unit": "none"
+        }
+      },
+      "gridPos": {
+        "h": 4,
+        "w": 4,
+        "x": 8,
+        "y": 5
+      },
+      "id": 5,
+      "options": {
+        "colorMode": "background",
+        "graphMode": "none",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ]
+        },
+        "text": {
+          "valueSize": 28
+        }
+      },
+      "targets": [
+        {
+          "expr": "count(up{job=\"node-exporter\",cluster=\"$cluster\",instance!~\"localhost.*\"} == 0) or vector(0)",
+          "instant": true,
+          "refId": "A"
+        }
+      ],
+      "title": "Nodes OFFLINE / RMA",
+      "type": "stat"
+    },
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "${datasource}"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "fixedColor": "purple",
+            "mode": "fixed"
+          },
+          "decimals": 0,
+          "noValue": "0",
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "purple",
+                "value": null
+              }
+            ]
+          },
+          "unit": "none"
+        }
+      },
+      "gridPos": {
+        "h": 4,
+        "w": 4,
+        "x": 12,
+        "y": 5
+      },
+      "id": 6,
+      "options": {
+        "colorMode": "background",
+        "graphMode": "none",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ]
+        },
+        "text": {
+          "valueSize": 28
+        }
+      },
+      "targets": [
+        {
+          "expr": "count(DCGM_FI_DEV_GPU_UTIL{cluster=\"$cluster\",instance!~\"localhost.*\"})",
+          "instant": true,
+          "refId": "A"
+        }
+      ],
+      "title": "Total GPUs Installed",
+      "type": "stat"
+    },
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "${datasource}"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "fixedColor": "green",
+            "mode": "fixed"
+          },
+          "decimals": 0,
+          "noValue": "0",
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              }
+            ]
+          },
+          "unit": "none"
+        }
+      },
+      "gridPos": {
+        "h": 4,
+        "w": 4,
+        "x": 16,
+        "y": 5
+      },
+      "id": 7,
+      "options": {
+        "colorMode": "background",
+        "graphMode": "none",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ]
+        },
+        "text": {
+          "valueSize": 28
+        }
+      },
+      "targets": [
+        {
+          "expr": "count(DCGM_FI_DEV_GPU_UTIL{cluster=\"$cluster\",instance!~\"localhost.*\"} >= 0)",
+          "instant": true,
+          "refId": "A"
+        }
+      ],
+      "title": "GPUs ONLINE",
+      "type": "stat"
+    },
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "${datasource}"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "fixedColor": "blue",
+            "mode": "fixed"
+          },
+          "decimals": 0,
+          "noValue": "0",
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "blue",
+                "value": null
+              }
+            ]
+          },
+          "unit": "none"
+        }
+      },
+      "gridPos": {
+        "h": 4,
+        "w": 4,
+        "x": 20,
+        "y": 5
+      },
+      "id": 8,
+      "options": {
+        "colorMode": "background",
+        "graphMode": "none",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ]
+        },
+        "text": {
+          "valueSize": 28
+        }
+      },
+      "targets": [
+        {
+          "expr": "sum(DCGM_FI_DEV_FB_USED{cluster=\"$cluster\",instance!~\"localhost.*\"}+DCGM_FI_DEV_FB_FREE{cluster=\"$cluster\",instance!~\"localhost.*\"})/1024",
+          "instant": true,
+          "refId": "A"
+        }
+      ],
+      "title": "Total VRAM Capacity",
+      "type": "stat"
+    },
+    {
+      "collapsed": false,
+      "gridPos": {
+        "h": 1,
+        "w": 24,
+        "x": 0,
+        "y": 9
+      },
+      "id": 9,
+      "title": "\ud83d\udcca SLA & Uptime \u2014 99.9% Target (8hr/year budget)",
+      "type": "row"
+    },
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "${datasource}"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "decimals": 4,
+          "max": 100,
+          "min": 0,
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "red",
+                "value": null
+              },
+              {
+                "color": "orange",
+                "value": 99
+              },
+              {
+                "color": "green",
+                "value": 99.9
+              }
+            ]
+          },
+          "unit": "percent"
+        }
+      },
+      "gridPos": {
+        "h": 5,
+        "w": 4,
+        "x": 0,
+        "y": 10
+      },
+      "id": 10,
+      "options": {
+        "colorMode": "background",
+        "graphMode": "none",
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ]
+        },
+        "text": {
+          "valueSize": 26
+        }
+      },
+      "targets": [
+        {
+          "expr": "min(100*avg_over_time(up{job=\"node-exporter\",cluster=\"$cluster\",instance!~\"localhost.*\"}[30d]))",
+          "instant": true,
+          "refId": "A"
+        }
+      ],
+      "title": "Min Node Availability (30d)",
+      "type": "stat"
+    },
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "${datasource}"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "decimals": 4,
+          "max": 100,
+          "min": 0,
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "red",
+                "value": null
+              },
+              {
+                "color": "orange",
+                "value": 99
+              },
+              {
+                "color": "green",
+                "value": 99.9
+              }
+            ]
+          },
+          "unit": "percent"
+        }
+      },
+      "gridPos": {
+        "h": 5,
+        "w": 4,
+        "x": 4,
+        "y": 10
+      },
+      "id": 11,
+      "options": {
+        "colorMode": "background",
+        "graphMode": "none",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ]
+        },
+        "text": {
+          "valueSize": 26
+        }
+      },
+      "targets": [
+        {
+          "expr": "avg(100*avg_over_time(up{job=\"node-exporter\",cluster=\"$cluster\",instance!~\"localhost.*\"}[30d]))",
+          "instant": true,
+          "refId": "A"
+        }
+      ],
+      "title": "Avg Node Availability (30d)",
+      "type": "stat"
+    },
+    {
+      "gridPos": {
+        "h": 5,
+        "w": 6,
+        "x": 8,
+        "y": 10
+      },
+      "id": 12,
+      "options": {
+        "content": "<div style=\"padding:12px;background:#0d1828;border-radius:8px;font-family:monospace;height:100%;box-sizing:border-box\">\n<div style=\"color:#76b900;font-weight:700;font-size:11px;margin-bottom:8px\">SLA BUDGET TRACKER (99.9% = 8.76 hrs/yr)</div>\n<div style=\"display:flex;justify-content:space-between;margin-bottom:4px\">\n  <span style=\"color:#8b949e;font-size:10px\">Annual Downtime Budget:</span>\n  <span style=\"color:#f0c040;font-size:10px;font-weight:700\">8.76 hrs</span>\n</div>\n<div style=\"display:flex;justify-content:space-between;margin-bottom:4px\">\n  <span style=\"color:#8b949e;font-size:10px\">Downtime Used (est):</span>\n  <span style=\"color:#76b900;font-size:10px;font-weight:700\">~0 hrs</span>\n</div>\n<div style=\"display:flex;justify-content:space-between;margin-bottom:8px\">\n  <span style=\"color:#8b949e;font-size:10px\">Budget Remaining:</span>\n  <span style=\"color:#76b900;font-size:10px;font-weight:700\">8.76 hrs</span>\n</div>\n<div style=\"background:#1a2a1a;border-radius:4px;height:8px;width:100%;margin-bottom:4px\">\n  <div style=\"background:#76b900;border-radius:4px;height:8px;width:2%\"></div>\n</div>\n<div style=\"color:#8b949e;font-size:9px;text-align:center\">2% of annual budget used</div>\n<div style=\"margin-top:8px;padding:6px;background:#0a1a0a;border-radius:4px;border:1px solid #2ea04330\">\n  <div style=\"color:#7ee787;font-size:10px;font-weight:700\">\ud83d\udfe2 SLA ON TRACK</div>\n  <div style=\"color:#8b949e;font-size:9px\">99.9% availability target met</div>\n</div>\n</div>",
+        "mode": "html"
+      },
+      "title": "SLA Budget \u2014 99.9% Target",
+      "type": "text"
+    },
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "${datasource}"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "custom": {
+            "fillOpacity": 50,
+            "lineWidth": 2,
+            "spanNulls": false
+          },
+          "max": 1,
+          "min": 0,
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "red",
+                "value": null
+              },
+              {
+                "color": "green",
+                "value": 1
+              }
+            ]
+          }
+        }
+      },
+      "gridPos": {
+        "h": 5,
+        "w": 10,
+        "x": 14,
+        "y": 10
+      },
+      "id": 13,
+      "options": {
+        "legend": {
+          "displayMode": "list"
+        },
+        "tooltip": {
+          "mode": "multi"
+        }
+      },
+      "targets": [
+        {
+          "expr": "up{job=\"node-exporter\",cluster=\"$cluster\",instance!~\"localhost.*\"}",
+          "legendFormat": "{{instance}}",
+          "refId": "A"
+        }
+      ],
+      "title": "Node Availability Timeline (1=UP, 0=DOWN)",
+      "type": "timeseries"
+    },
+    {
+      "collapsed": false,
+      "gridPos": {
+        "h": 1,
+        "w": 24,
+        "x": 0,
+        "y": 15
+      },
+      "id": 14,
+      "title": "\ud83c\udfaf GPU Allocation \u2014 Team Usage & Efficiency",
+      "type": "row"
+    },
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "${datasource}"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "decimals": 1,
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "blue",
+                "value": null
+              },
+              {
+                "color": "green",
+                "value": 30
+              },
+              {
+                "color": "yellow",
+                "value": 80
+              },
+              {
+                "color": "red",
+                "value": 95
+              }
+            ]
+          },
+          "unit": "percent"
+        }
+      },
+      "gridPos": {
+        "h": 4,
+        "w": 4,
+        "x": 0,
+        "y": 16
+      },
+      "id": 15,
+      "options": {
+        "colorMode": "background",
+        "graphMode": "sparkline",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ]
+        }
+      },
+      "targets": [
+        {
+          "expr": "avg(DCGM_FI_DEV_GPU_UTIL{cluster=\"$cluster\",instance!~\"localhost.*\"})",
+          "instant": true,
+          "refId": "A"
+        }
+      ],
+      "title": "GPU Utilization (Cluster Avg)",
+      "type": "stat"
+    },
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "${datasource}"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "decimals": 1,
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "yellow",
+                "value": 70
+              },
+              {
+                "color": "red",
+                "value": 90
+              }
+            ]
+          },
+          "unit": "percent"
+        }
+      },
+      "gridPos": {
+        "h": 4,
+        "w": 4,
+        "x": 4,
+        "y": 16
+      },
+      "id": 16,
+      "options": {
+        "colorMode": "background",
+        "graphMode": "sparkline",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ]
+        }
+      },
+      "targets": [
+        {
+          "expr": "sum(DCGM_FI_DEV_FB_USED{cluster=\"$cluster\",instance!~\"localhost.*\"})/(sum(DCGM_FI_DEV_FB_USED{cluster=\"$cluster\",instance!~\"localhost.*\"})+sum(DCGM_FI_DEV_FB_FREE{cluster=\"$cluster\",instance!~\"localhost.*\"}))*100",
+          "instant": true,
+          "refId": "A"
+        }
+      ],
+      "title": "VRAM Allocated (Cluster)",
+      "type": "stat"
+    },
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "${datasource}"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "noValue": "Enable sacct",
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "blue",
+                "value": null
+              }
+            ]
+          }
+        }
+      },
+      "gridPos": {
+        "h": 4,
+        "w": 4,
+        "x": 8,
+        "y": 16
+      },
+      "id": 17,
+      "options": {
+        "colorMode": "background",
+        "graphMode": "none",
+        "noValue": "N/A",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ]
+        }
+      },
+      "targets": [
+        {
+          "expr": "sum(slurm_job_state{cluster=\"$cluster\",state=\"RUNNING\"}) or vector(0)",
+          "instant": true,
+          "refId": "A"
+        }
+      ],
+      "title": "Active Jobs (Slurm)",
+      "type": "stat"
+    },
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "${datasource}"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "noValue": "0",
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "yellow",
+                "value": 5
+              },
+              {
+                "color": "red",
+                "value": 20
+              }
+            ]
+          }
+        }
+      },
+      "gridPos": {
+        "h": 4,
+        "w": 4,
+        "x": 12,
+        "y": 16
+      },
+      "id": 18,
+      "options": {
+        "colorMode": "background",
+        "graphMode": "none",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ]
+        }
+      },
+      "targets": [
+        {
+          "expr": "sum(slurm_job_state{cluster=\"$cluster\",state=\"PENDING\"}) or vector(0)",
+          "instant": true,
+          "refId": "A"
+        }
+      ],
+      "title": "Pending Jobs (Queue)",
+      "type": "stat"
+    },
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "${datasource}"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "continuous-GrYlRd"
+          },
+          "max": 100,
+          "min": 0,
+          "unit": "percent"
+        }
+      },
+      "gridPos": {
+        "h": 9,
+        "w": 8,
+        "x": 16,
+        "y": 16
+      },
+      "id": 19,
+      "options": {
+        "displayMode": "gradient",
+        "orientation": "horizontal",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ]
+        }
+      },
+      "targets": [
+        {
+          "expr": "topk(50, avg by (instance)(DCGM_FI_DEV_GPU_UTIL{cluster=~\"$cluster\",instance!~\"localhost.*\"}))",
+          "instant": true,
+          "legendFormat": "{{node}}",
+          "refId": "A"
+        }
+      ],
+      "title": "GPU Allocation by Team / Project",
+      "type": "bargauge"
+    },
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "${datasource}"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "custom": {
+            "fillOpacity": 15,
+            "lineWidth": 2
+          },
+          "max": 100,
+          "min": 0,
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "yellow",
+                "value": 80
+              },
+              {
+                "color": "red",
+                "value": 95
+              }
+            ]
+          },
+          "unit": "percent"
+        }
+      },
+      "gridPos": {
+        "h": 5,
+        "w": 16,
+        "x": 0,
+        "y": 20
+      },
+      "id": 20,
+      "options": {
+        "legend": {
+          "calcs": [
+            "mean",
+            "max"
+          ],
+          "displayMode": "table"
+        }
+      },
+      "targets": [
+        {
+          "expr": "avg by (instance) (DCGM_FI_DEV_GPU_UTIL{cluster=\"$cluster\",instance!~\"localhost.*\"})",
+          "legendFormat": "{{instance}} GPU{{gpu}}",
+          "refId": "A"
+        }
+      ],
+      "title": "GPU Utilization Per Node \u2014 24h Trend",
+      "type": "timeseries"
+    },
+    {
+      "collapsed": false,
+      "gridPos": {
+        "h": 1,
+        "w": 24,
+        "x": 0,
+        "y": 25
+      },
+      "id": 21,
+      "title": "\ud83d\udca7 Power, Liquid Cooling & Leak Detection",
+      "type": "row"
+    },
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "${datasource}"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "mappings": [
+            {
+              "options": {
+                "0": {
+                  "color": "green",
+                  "text": "\u2705 NO LEAKS"
+                }
+              },
+              "type": "value"
+            }
+          ],
+          "noValue": "\u2705 NO LEAKS",
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 1
+              }
+            ]
+          }
+        }
+      },
+      "gridPos": {
+        "h": 5,
+        "w": 3,
+        "x": 0,
+        "y": 26
+      },
+      "id": 22,
+      "options": {
+        "colorMode": "background",
+        "graphMode": "none",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ]
+        },
+        "text": {
+          "valueSize": 32
+        }
+      },
+      "targets": [
+        {
+          "expr": "sum(deviceswithleaks) or vector(0)",
+          "instant": true,
+          "refId": "A"
+        }
+      ],
+      "title": "\ud83d\udd34 Leak Events (BCM)",
+      "type": "stat"
+    },
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "${datasource}"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "mappings": [
+            {
+              "options": {
+                "0": {
+                  "color": "green",
+                  "text": "\u2705 CLEAR"
+                }
+              },
+              "type": "value"
+            }
+          ],
+          "noValue": "\u2705 CLEAR",
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 1
+              }
+            ]
+          }
+        }
+      },
+      "gridPos": {
+        "h": 5,
+        "w": 3,
+        "x": 3,
+        "y": 26
+      },
+      "id": 23,
+      "options": {
+        "colorMode": "background",
+        "graphMode": "none",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ]
+        }
+      },
+      "targets": [
+        {
+          "expr": "sum(leakdetectrack) or vector(0)",
+          "instant": true,
+          "refId": "A"
+        }
+      ],
+      "title": "Rack Leak Detect",
+      "type": "stat"
+    },
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "${datasource}"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "mappings": [
+            {
+              "options": {
+                "0": {
+                  "color": "green",
+                  "text": "\u2705 NORMAL"
+                },
+                "1": {
+                  "color": "red",
+                  "text": "\ud83d\udd34 ISOLATED"
+                }
+              },
+              "type": "value"
+            }
+          ],
+          "noValue": "\u2705 NORMAL",
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 1
+              }
+            ]
+          }
+        }
+      },
+      "gridPos": {
+        "h": 5,
+        "w": 3,
+        "x": 6,
+        "y": 26
+      },
+      "id": 24,
+      "options": {
+        "colorMode": "background",
+        "graphMode": "none",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ]
+        }
+      },
+      "targets": [
+        {
+          "expr": "sum(leakresponserackliquidisolationstatus) or vector(0)",
+          "instant": true,
+          "refId": "A"
+        }
+      ],
+      "title": "Liquid Isolation Status",
+      "type": "stat"
+    },
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "${datasource}"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "mappings": [
+            {
+              "options": {
+                "0": {
+                  "color": "green",
+                  "text": "\u2705 NORMAL"
+                },
+                "1": {
+                  "color": "red",
+                  "text": "\ud83d\udd34 ISOLATED"
+                }
+              },
+              "type": "value"
+            }
+          ],
+          "noValue": "\u2705 NORMAL",
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 1
+              }
+            ]
+          }
+        }
+      },
+      "gridPos": {
+        "h": 5,
+        "w": 3,
+        "x": 9,
+        "y": 26
+      },
+      "id": 25,
+      "options": {
+        "colorMode": "background",
+        "graphMode": "none",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ]
+        }
+      },
+      "targets": [
+        {
+          "expr": "sum(leakresponserackelectricalisolationstatus) or vector(0)",
+          "instant": true,
+          "refId": "A"
+        }
+      ],
+      "title": "Electrical Isolation Status",
+      "type": "stat"
+    },
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "${datasource}"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "mappings": [
+            {
+              "options": {
+                "0": {
+                  "color": "green",
+                  "text": "\u2705 DRY"
+                }
+              },
+              "type": "value"
+            }
+          ],
+          "noValue": "\u2705 DRY",
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "orange",
+                "value": 0.5
+              },
+              {
+                "color": "red",
+                "value": 1
+              }
+            ]
+          }
+        }
+      },
+      "gridPos": {
+        "h": 5,
+        "w": 3,
+        "x": 12,
+        "y": 26
+      },
+      "id": 26,
+      "options": {
+        "colorMode": "background",
+        "graphMode": "none",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ]
+        }
+      },
+      "targets": [
+        {
+          "expr": "rf_chassis_0_leakdetector_0_coldplate{hostname=~\"$node\"} or vector(0)",
+          "instant": true,
+          "refId": "A"
+        }
+      ],
+      "title": "ColdPlate Sensor ($node)",
+      "type": "stat"
+    },
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "${datasource}"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "mappings": [
+            {
+              "options": {
+                "0": {
+                  "color": "green",
+                  "text": "\u2705 DRY"
+                }
+              },
+              "type": "value"
+            }
+          ],
+          "noValue": "\u2705 DRY",
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "orange",
+                "value": 0.5
+              },
+              {
+                "color": "red",
+                "value": 1
+              }
+            ]
+          }
+        }
+      },
+      "gridPos": {
+        "h": 5,
+        "w": 3,
+        "x": 15,
+        "y": 26
+      },
+      "id": 27,
+      "options": {
+        "colorMode": "background",
+        "graphMode": "none",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ]
+        }
+      },
+      "targets": [
+        {
+          "expr": "rf_chassis_0_leakdetector_0_manifold{hostname=~\"$node\"} or vector(0)",
+          "instant": true,
+          "refId": "A"
+        }
+      ],
+      "title": "Manifold Sensor ($node)",
+      "type": "stat"
+    },
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "${datasource}"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "decimals": 0,
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "yellow",
+                "value": 400
+              },
+              {
+                "color": "red",
+                "value": 600
+              }
+            ]
+          },
+          "unit": "watt"
+        }
+      },
+      "gridPos": {
+        "h": 3,
+        "w": 3,
+        "x": 18,
+        "y": 26
+      },
+      "id": 28,
+      "options": {
+        "colorMode": "background",
+        "graphMode": "sparkline",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ]
+        }
+      },
+      "targets": [
+        {
+          "expr": "sum(DCGM_FI_DEV_POWER_USAGE{cluster=\"$cluster\",instance!~\"localhost.*\"})",
+          "instant": true,
+          "refId": "A"
+        }
+      ],
+      "title": "Total GPU Power Draw",
+      "type": "stat"
+    },
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "${datasource}"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "decimals": 0,
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "yellow",
+                "value": 70
+              },
+              {
+                "color": "orange",
+                "value": 80
+              },
+              {
+                "color": "red",
+                "value": 87
+              }
+            ]
+          },
+          "unit": "celsius"
+        }
+      },
+      "gridPos": {
+        "h": 3,
+        "w": 3,
+        "x": 21,
+        "y": 26
+      },
+      "id": 29,
+      "options": {
+        "colorMode": "background",
+        "graphMode": "sparkline",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ]
+        }
+      },
+      "targets": [
+        {
+          "expr": "max(DCGM_FI_DEV_GPU_TEMP{cluster=\"$cluster\",instance!~\"localhost.*\"})",
+          "instant": true,
+          "refId": "A"
+        }
+      ],
+      "title": "Max GPU Temp",
+      "type": "stat"
+    },
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "${datasource}"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "fixedColor": "blue",
+            "mode": "fixed"
+          },
+          "decimals": 2,
+          "unit": "kwatth"
+        }
+      },
+      "gridPos": {
+        "h": 2,
+        "w": 3,
+        "x": 18,
+        "y": 29
+      },
+      "id": 30,
+      "options": {
+        "colorMode": "value",
+        "graphMode": "none",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ]
+        }
+      },
+      "targets": [
+        {
+          "expr": "increase(sum(DCGM_FI_DEV_TOTAL_ENERGY_CONSUMPTION{cluster=\"$cluster\",instance!~\"localhost.*\"})[24h:])/1000/3600",
+          "instant": true,
+          "refId": "A"
+        }
+      ],
+      "title": "Energy Consumed (24h)",
+      "type": "stat"
+    },
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "${datasource}"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "mappings": [
+            {
+              "options": {
+                "0": {
+                  "color": "orange",
+                  "text": "\u26a0\ufe0f CHECK"
+                },
+                "1": {
+                  "color": "green",
+                  "text": "\u2705 OK"
+                }
+              },
+              "type": "value"
+            }
+          ],
+          "noValue": "\u26a0\ufe0f Not cfg",
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "orange",
+                "value": null
+              },
+              {
+                "color": "green",
+                "value": 1
+              }
+            ]
+          }
+        }
+      },
+      "gridPos": {
+        "h": 2,
+        "w": 3,
+        "x": 21,
+        "y": 29
+      },
+      "id": 31,
+      "options": {
+        "colorMode": "background",
+        "graphMode": "none",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ]
+        }
+      },
+      "targets": [
+        {
+          "expr": "up{job=\"snmp\"} or vector(0)",
+          "instant": true,
+          "refId": "A"
+        }
+      ],
+      "title": "PDU / SNMP Status",
+      "type": "stat"
+    },
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "${datasource}"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "custom": {
+            "fillOpacity": 15,
+            "lineWidth": 2
+          },
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "yellow",
+                "value": 200
+              },
+              {
+                "color": "red",
+                "value": 280
+              }
+            ]
+          },
+          "unit": "watt"
+        }
+      },
+      "gridPos": {
+        "h": 7,
+        "w": 12,
+        "x": 0,
+        "y": 31
+      },
+      "id": 32,
+      "options": {
+        "legend": {
+          "calcs": [
+            "mean",
+            "max"
+          ],
+          "displayMode": "table"
+        }
+      },
+      "targets": [
+        {
+          "expr": "sum(DCGM_FI_DEV_POWER_USAGE{cluster=\"$cluster\",instance!~\"localhost.*\"})",
+          "legendFormat": "Total Power",
+          "refId": "A"
+        },
+        {
+          "expr": "avg by (instance) (DCGM_FI_DEV_POWER_USAGE{cluster=\"$cluster\",instance!~\"localhost.*\"})",
+          "legendFormat": "{{instance}} GPU{{gpu}}",
+          "refId": "B"
+        }
+      ],
+      "title": "GPU Power Draw Over Time \u2014 All Nodes (W)",
+      "type": "timeseries"
+    },
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "${datasource}"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "custom": {
+            "fillOpacity": 10,
+            "lineWidth": 2
+          },
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "yellow",
+                "value": 70
+              },
+              {
+                "color": "orange",
+                "value": 80
+              },
+              {
+                "color": "red",
+                "value": 87
+              }
+            ]
+          },
+          "unit": "celsius"
+        }
+      },
+      "gridPos": {
+        "h": 7,
+        "w": 12,
+        "x": 12,
+        "y": 31
+      },
+      "id": 33,
+      "options": {
+        "legend": {
+          "calcs": [
+            "mean",
+            "max"
+          ],
+          "displayMode": "table"
+        },
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Critical Thermal Limit"
+            },
+            "properties": [
+              {
+                "id": "custom.lineStyle",
+                "value": {
+                  "fill": "dash"
+                }
+              },
+              {
+                "id": "fixedColor",
+                "value": "red"
+              }
+            ]
+          }
+        ]
+      },
+      "targets": [
+        {
+          "expr": "avg by (instance) (DCGM_FI_DEV_GPU_TEMP{cluster=\"$cluster\",instance!~\"localhost.*\"})",
+          "legendFormat": "{{instance}} GPU Temp",
+          "refId": "A"
+        },
+        {
+          "expr": "avg by (instance) (DCGM_FI_DEV_MEMORY_TEMP{cluster=\"$cluster\",instance!~\"localhost.*\"})",
+          "legendFormat": "{{instance}} Mem Temp",
+          "refId": "B"
+        }
+      ],
+      "title": "GPU & Memory Temperature (\u00b0C) \u2014 Thermal Health",
+      "type": "timeseries"
+    },
+    {
+      "collapsed": false,
+      "gridPos": {
+        "h": 1,
+        "w": 24,
+        "x": 0,
+        "y": 38
+      },
+      "id": 34,
+      "title": "\ud83d\udccb Investment Summary & Capacity Reference",
+      "type": "row"
+    },
+    {
+      "gridPos": {
+        "h": 7,
+        "w": 24,
+        "x": 0,
+        "y": 39
+      },
+      "id": 35,
+      "options": {
+        "content": "<div style=\"padding:16px;background:#060d14;border-radius:8px;border:1px solid #1e3a5a;font-family:monospace;font-size:11px\">\n<div style=\"display:grid;grid-template-columns:1fr 1fr 1fr 1fr;gap:12px\">\n\n<div style=\"background:#0d1828;border:1px solid #76b90030;border-radius:6px;padding:14px\">\n  <div style=\"color:#76b900;font-weight:700;font-size:12px;margin-bottom:10px\">\ud83c\udfd7\ufe0f INSTALLED CAPACITY</div>\n  <div style=\"display:flex;justify-content:space-between;padding:3px 0;border-bottom:1px solid #1e3a2a\"><span style=\"color:#8b949e\">GPU Nodes</span><span style=\"color:#7ee787;font-weight:700\">Live \u2014 see KPIs above \u2191</span></div>\n  <div style=\"display:flex;justify-content:space-between;padding:3px 0;border-bottom:1px solid #1e3a2a\"><span style=\"color:#8b949e\">GPUs Total</span><span style=\"color:#7ee787;font-weight:700\">Live \u2014 see GPU Health \u2191</span></div>\n  <div style=\"display:flex;justify-content:space-between;padding:3px 0;border-bottom:1px solid #1e3a2a\"><span style=\"color:#8b949e\">Total VRAM</span><span style=\"color:#7ee787;font-weight:700\">Live \u2014 see KPIs above \u2191</span></div>\n  <div style=\"display:flex;justify-content:space-between;padding:3px 0;border-bottom:1px solid #1e3a2a\"><span style=\"color:#8b949e\">CPU Cores</span><span style=\"color:#7ee787;font-weight:700\">via BCM</span></div>\n  <div style=\"display:flex;justify-content:space-between;padding:3px 0;border-bottom:1px solid #1e3a2a\"><span style=\"color:#8b949e\">Network</span><span style=\"color:#7ee787;font-weight:700\">Spectrum-X RoCE</span></div>\n  <div style=\"display:flex;justify-content:space-between;padding:3px 0\"><span style=\"color:#8b949e\">Cooling</span><span style=\"color:#7ee787;font-weight:700\">Liquid (BCM-10)</span></div>\n</div>\n\n<div style=\"background:#0d1828;border:1px solid #79c0ff30;border-radius:6px;padding:14px\">\n  <div style=\"color:#79c0ff;font-weight:700;font-size:12px;margin-bottom:10px\">\ud83d\udcca SLA CONTRACT</div>\n  <div style=\"display:flex;justify-content:space-between;padding:3px 0;border-bottom:1px solid #1e2a3a\"><span style=\"color:#8b949e\">Target Uptime</span><span style=\"color:#79c0ff;font-weight:700\">99.9%</span></div>\n  <div style=\"display:flex;justify-content:space-between;padding:3px 0;border-bottom:1px solid #1e2a3a\"><span style=\"color:#8b949e\">Downtime Budget</span><span style=\"color:#79c0ff;font-weight:700\">8.76 hrs/year</span></div>\n  <div style=\"display:flex;justify-content:space-between;padding:3px 0;border-bottom:1px solid #1e2a3a\"><span style=\"color:#8b949e\">Per Month</span><span style=\"color:#79c0ff;font-weight:700\">43.8 min</span></div>\n  <div style=\"display:flex;justify-content:space-between;padding:3px 0;border-bottom:1px solid #1e2a3a\"><span style=\"color:#8b949e\">Per Week</span><span style=\"color:#79c0ff;font-weight:700\">10.1 min</span></div>\n  <div style=\"display:flex;justify-content:space-between;padding:3px 0;border-bottom:1px solid #1e2a3a\"><span style=\"color:#8b949e\">RTO (Recovery)</span><span style=\"color:#79c0ff;font-weight:700\">< 30 min</span></div>\n  <div style=\"display:flex;justify-content:space-between;padding:3px 0\"><span style=\"color:#8b949e\">RPO</span><span style=\"color:#79c0ff;font-weight:700\">< 1 hour</span></div>\n</div>\n\n<div style=\"background:#0d1828;border:1px solid #f0c04030;border-radius:6px;padding:14px\">\n  <div style=\"color:#f0c040;font-weight:700;font-size:12px;margin-bottom:10px\">\u26a0\ufe0f ITEMS NEEDING ATTENTION</div>\n  <div style=\"padding:4px 6px;background:#1a1500;border:1px solid #d2992240;border-radius:4px;margin-bottom:4px\">\n    <div style=\"color:#f0c040;font-size:10px;font-weight:700\">BCM TLS Certificate</div>\n    <div style=\"color:#8b949e;font-size:9px\">Expires in ~28 days \u00b7 Redmine #4931377</div>\n  </div>\n  <div style=\"padding:4px 6px;background:#0d1828;border:1px solid #2ea04330;border-radius:4px;margin-bottom:4px\">\n    <div style=\"color:#7ee787;font-size:10px;font-weight:700\">\u2705 Liquid Cooling</div>\n    <div style=\"color:#8b949e;font-size:9px\">No leaks \u00b7 All sensors nominal</div>\n  </div>\n  <div style=\"padding:4px 6px;background:#0d1828;border:1px solid #2ea04330;border-radius:4px;margin-bottom:4px\">\n    <div style=\"color:#7ee787;font-size:10px;font-weight:700\">\u2705 All Nodes Online</div>\n    <div style=\"color:#8b949e;font-size:9px\">Node status \u2014 see Cluster Overview \u2191</div>\n  </div>\n  <div style=\"padding:4px 6px;background:#0d1828;border:1px solid #2ea04330;border-radius:4px\">\n    <div style=\"color:#7ee787;font-size:10px;font-weight:700\">\u2705 Fabric Healthy</div>\n    <div style=\"color:#8b949e;font-size:9px\">Spectrum-X \u00b7 No PFC/ECN events</div>\n  </div>\n</div>\n\n<div style=\"background:#0d1828;border:1px solid #b57eff30;border-radius:6px;padding:14px\">\n  <div style=\"color:#b57eff;font-weight:700;font-size:12px;margin-bottom:10px\">\ud83e\udd16 COMPUTE CAPACITY</div>\n  <div style=\"display:flex;justify-content:space-between;padding:3px 0;border-bottom:1px solid #2a1e3a\"><span style=\"color:#8b949e\">Peak FP16</span><span style=\"color:#b57eff;font-weight:700\">GPU-model dependent</span></div>\n  <div style=\"display:flex;justify-content:space-between;padding:3px 0;border-bottom:1px solid #2a1e3a\"><span style=\"color:#8b949e\">Peak BF16</span><span style=\"color:#b57eff;font-weight:700\">GPU-model dependent</span></div>\n  <div style=\"display:flex;justify-content:space-between;padding:3px 0;border-bottom:1px solid #2a1e3a\"><span style=\"color:#8b949e\">Max Power</span><span style=\"color:#b57eff;font-weight:700\">See GPU Health \u2191</span></div>\n  <div style=\"display:flex;justify-content:space-between;padding:3px 0;border-bottom:1px solid #2a1e3a\"><span style=\"color:#8b949e\">NVLink BW</span><span style=\"color:#b57eff;font-weight:700\">See Network Fabric \u2191</span></div>\n  <div style=\"display:flex;justify-content:space-between;padding:3px 0;border-bottom:1px solid #2a1e3a\"><span style=\"color:#8b949e\">NIM Ready</span><span style=\"color:#f0c040;font-weight:700\">Config needed</span></div>\n  <div style=\"display:flex;justify-content:space-between;padding:3px 0\"><span style=\"color:#8b949e\">Token Budget</span><span style=\"color:#f0c040;font-weight:700\">Not set</span></div>\n</div>\n\n</div>\n</div>",
+        "mode": "html"
+      },
+      "title": "",
+      "type": "text"
+    }
+  ],
+  "refresh": "30s",
+  "schemaVersion": 38,
+  "tags": [
+    "nvis",
+    "cio",
+    "executive",
+    "superpod"
+  ],
+  "templating": {
+    "list": [
+      {
+        "current": {},
+        "hide": 0,
+        "includeAll": false,
+        "label": "Prometheus",
+        "multi": false,
+        "name": "datasource",
+        "query": "prometheus",
+        "refresh": 1,
+        "regex": "",
+        "skipUrlSync": false,
+        "type": "datasource"
+      },
+      {
+        "current": {},
+        "hide": 0,
+        "includeAll": false,
+        "label": "Loki",
+        "multi": false,
+        "name": "loki_datasource",
+        "query": "loki",
+        "refresh": 1,
+        "regex": "",
+        "skipUrlSync": false,
+        "type": "datasource"
+      },
+      {
+        "datasource": {
+          "type": "prometheus",
+          "uid": "${datasource}"
+        },
+        "label": "Cluster",
+        "name": "cluster",
+        "query": {
+          "query": "label_values(up{job=\"node-exporter\"}, cluster)",
+          "refId": "StandardVariableQuery"
+        },
+        "refresh": 2,
+        "sort": 1,
+        "type": "query",
+        "includeAll": false,
+        "multi": false,
+        "hide": 0
+      },
+      {
+        "datasource": {
+          "type": "prometheus",
+          "uid": "${datasource}"
+        },
+        "label": "Node",
+        "name": "node",
+        "query": {
+          "query": "label_values(up{job=\"node-exporter\",cluster=\"$cluster\"}, instance)",
+          "refId": "StandardVariableQuery"
+        },
+        "refresh": 2,
+        "sort": 1,
+        "type": "query",
+        "includeAll": true,
+        "allValue": ".*",
+        "multi": false,
+        "hide": 0,
+        "regex": "^(?!localhost).*"
+      }
+    ]
+  },
+  "time": {
+    "from": "now-24h",
+    "to": "now"
+  },
+  "timezone": "browser",
+  "title": "SuperPOD Command Center \u2014 CIO Executive View",
+  "uid": "nvis-superpod-cio",
+  "version": 2
+}

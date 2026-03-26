@@ -1,0 +1,51 @@
+---
+# NVIS Observability Suite — GitLab CI/CD
+# Validates dashboards and scripts on every push
+
+stages:
+  - lint
+  - validate
+
+variables:
+  TERRAFORM_VERSION: "1.6.0"
+
+shellcheck:
+  stage: lint
+  image: koalaman/shellcheck-alpine:stable
+  script:
+    - shellcheck setup.sh setup_bcm.sh fix-alloy-labels.sh fix-node-exporter.sh
+  allow_failure: true
+
+terraform-validate:
+  stage: validate
+  image:
+    name: hashicorp/terraform:${TERRAFORM_VERSION}
+    entrypoint: [""]
+  script:
+    - cd terraform
+    - cp terraform.tfvars.example terraform.tfvars
+    - terraform init -backend=false
+    - terraform validate
+  allow_failure: false
+
+dashboard-json-lint:
+  stage: lint
+  image: python:3.11-slim
+  script:
+    - python3 -c "
+      import json, sys, os
+      errors = []
+      for root, dirs, files in os.walk('terraform/dashboards'):
+          for f in files:
+              if f.endswith('.json'):
+                  path = os.path.join(root, f)
+                  try:
+                      json.load(open(path))
+                  except json.JSONDecodeError as e:
+                      errors.append(str(path) + ': ' + str(e))
+      if errors:
+          [print(e) for e in errors]
+          sys.exit(1)
+      print('All dashboard JSON valid')
+      "
+  allow_failure: false

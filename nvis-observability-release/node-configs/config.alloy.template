@@ -1,0 +1,70 @@
+// NVIS Alloy config template
+// Replace OBSVM_IP and CLUSTER_NAME before deploying, OR use agent-deploy.sh which does this automatically.
+// 
+// To deploy: OBSVM_IP=x.x.x.x CLUSTER=my-cluster bash working/agent-deploy.sh
+
+// ── Metrics ──────────────────────────────────────────────────────────────
+prometheus.scrape "dcgm" {
+  targets         = [{"__address__" = "localhost:9400"}]
+  forward_to      = [prometheus.relabel.add_labels.receiver]
+  scrape_interval = "15s"
+  job_name        = "dcgm-exporter"
+}
+
+prometheus.scrape "node" {
+  targets         = [{"__address__" = "localhost:9100"}]
+  forward_to      = [prometheus.relabel.add_labels.receiver]
+  scrape_interval = "15s"
+  job_name        = "node-exporter"
+}
+
+prometheus.scrape "cgroup" {
+  targets         = [{"__address__" = "localhost:9306"}]
+  forward_to      = [prometheus.relabel.add_labels.receiver]
+  scrape_interval = "15s"
+  job_name        = "slurm-cgroup-exporter"
+}
+
+prometheus.relabel "add_labels" {
+  forward_to = [prometheus.remote_write.obsvm.receiver]
+  rule {
+    target_label = "instance"
+    replacement  = sys.env("HOSTNAME")
+  }
+  rule {
+    target_label = "cluster"
+    replacement  = sys.env("NVIS_CLUSTER")
+  }
+}
+
+prometheus.remote_write "obsvm" {
+  endpoint {
+    url = "http://OBSVM_IP:9090/api/v1/write"
+  }
+}
+
+// ── Logs ─────────────────────────────────────────────────────────────────
+local.file_match "varlog" {
+  path_targets = [
+    {__path__ = "/var/log/syslog",            job = "syslog",        log_type = "syslog"},
+    {__path__ = "/var/log/kern.log",           job = "kernel",        log_type = "kernel"},
+    {__path__ = "/var/log/auth.log",           job = "auth",          log_type = "auth"},
+    {__path__ = "/var/log/nv-hostengine.log",  job = "nv-hostengine", log_type = "dcgm"},
+    {__path__ = "/var/log/slurm*",             job = "slurmd",        log_type = "slurm"},
+  ]
+}
+
+loki.source.file "logfiles" {
+  targets    = local.file_match.varlog.targets
+  forward_to = [loki.write.obsvm.receiver]
+}
+
+loki.write "obsvm" {
+  endpoint {
+    url = "http://OBSVM_IP:3100/loki/api/v1/push"
+  }
+  external_labels = {
+    cluster = sys.env("NVIS_CLUSTER"),
+    node    = sys.env("HOSTNAME"),
+  }
+}
